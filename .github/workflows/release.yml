@@ -24,7 +24,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@8b122486cedac8393e77aa9734c3528886e4a1a8 # tag=v2.0.0
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@dc7b9719a96d48369863986a06765841d7ea23f6 # tag=v2.0.0
+        uses: docker/setup-buildx-action@8c0edbc76e98fa90f69d9a2c020dcb50019dc325 # v2.2.1
       - name: Cache Docker layers
         uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3.0.8
         with:

@@ -1,0 +1,18 @@
+services:
+  app:
+    image: test:latest
+    volumes:
+      - ./data:/data
+    environment:
+      - TZ=Europe/Zurich
+      - LOXONE_IP=192.168.60.250
+      - LOXONE_USERNAME=backup
+      - LOXONE_PASSWORD=om7NXHCysJ-tmdJ53i_HfETdJgHoHmKDAZtmXCyAh-P_SaXKr-tEesUZozRh-2HNQSykQbtw_-ZWfpuF-gQw_9y7XUn7Um4RXjrW
+      - BACKUP_LIMIT=2
+    networks:
+      - default
+    restart: on-failure
+
+networks:
+  default:
+

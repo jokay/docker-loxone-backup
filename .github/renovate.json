@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":disableDependencyDashboard",
+    ":disableRateLimiting",
+    ":automergeDigest",
+    "docker:enableMajor",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "labels": ["dependencies"],
+  "stabilityDays": 3,
+  "packageRules": [
+    {
+      "matchPaths": [".github/workflows/*.yml"],
+      "labels": ["github-actions"],
+      "automerge": true
+    }
+  ]
+}

@@ -1,18 +1,10 @@
 # Changelog
 
-## [1.1.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.1.0) (TBA)
-
-### Features
-
-- …
+## [1.1.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.1.0) (2022-12-03)
 
 ### Improvements
 
 - Updated the archive filename. ([#9])
-
-### Bugfixes
-
-- …
 
 ## [1.0.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.0.0) (2022-12-03)
 

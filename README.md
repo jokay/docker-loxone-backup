@@ -45,6 +45,7 @@ has only the permission **FTP**.
 | LOXONE_PASSWORD | **Required** | Loxone password.                                                                       |
 | INTERVAL        | *Optional*   | Interval of backups, default is `86400` seconds (24h).                                 |
 | KEEP_DAYS       | *Optional*   | Cleanup of backups older than x days. Default is `30`. Can be disabled by setting `0`. |
+| VERBOSE         | *Optional*   | If enabled, increases the verbosity level. Default ist `false`.                        |
 
 ## Samples
 

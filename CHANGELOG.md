@@ -4,7 +4,7 @@
 
 ### Features
 
-- …
+- Added parameter to increase verbosity level. ([#14])
 
 ### Improvements
 
@@ -26,3 +26,4 @@ Initial release.
 
 [#9]: https://github.com/jokay/docker-loxone-backup/issues/9
 [#12]: https://github.com/jokay/docker-loxone-backup/issues/12
+[#14]: https://github.com/jokay/docker-loxone-backup/issues/14

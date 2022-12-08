@@ -1,14 +1,10 @@
 # Changelog
 
-## [1.2.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.2.0) (TBA)
+## [1.2.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.2.0) (2022-12-08)
 
 ### Features
 
 - Added parameter to increase verbosity level. ([#14])
-
-### Improvements
-
-- …
 
 ### Bugfixes
 

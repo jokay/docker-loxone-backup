@@ -22,7 +22,7 @@ while :; do
 	cd "/data" || exit
 
 	log "Backup files from Loxone (${LOXONE_IP}) ..."
-	lftp "${LOXONE_IP}" -u "${LOXONE_USERNAME},${LOXONE_PASSWORD}" -e "set ssl:verify-certificate false; mirror -a --parallel=5 --use-pget-n=1 --skip-noaccess --only-newer --log=ftp.log --use-cache . current; quit"
+	lftp "${LOXONE_IP}" -u "${LOXONE_USERNAME},${LOXONE_PASSWORD}" -e "set ssl:verify-certificate false; mirror -a -n -e -P=5 --use-pget-n=1 --use-cache --log=ftp.log . current; quit"
 	tar -czf "archives/loxone_backup_${LOXONE_IP}_$(date +%Y-%m-%d_%H-%M-%S).tar.gz" "current/"
 
 	if [ "${KEEP_DAYS}" -gt 0 ]; then

@@ -20,7 +20,7 @@ fi
 
 FTP_PARAMS=""
 
-if [ "${VERBOSE}" ]; then
+if [ "${VERBOSE}" = "true" ]; then
 	FTP_PARAMS="${FTP_PARAMS} -vvv"
 fi
 

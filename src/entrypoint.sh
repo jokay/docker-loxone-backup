@@ -18,7 +18,7 @@ if [ -z "${LOXONE_IP}" ] || [ -z "${LOXONE_USERNAME}" ] || [ -z "${LOXONE_PASSWO
 	exit 1
 fi
 
-FTP_PARAMS=""
+FTP_PARAMS="-a -n -e -P=5 --use-pget-n=1 --skip-noaccess --use-cache --log=ftp.log"
 
 if [ "${VERBOSE}" = "true" ]; then
 	FTP_PARAMS="${FTP_PARAMS} -vvv"
@@ -28,7 +28,7 @@ while :; do
 	cd "/data" || exit
 
 	log "Backup files from Loxone (${LOXONE_IP}) ..."
-	lftp "${LOXONE_IP}" -u "${LOXONE_USERNAME},${LOXONE_PASSWORD}" -e "set ssl:verify-certificate false; mirror -a -n -e -P=5 --use-pget-n=1 --use-cache --log=ftp.log${FTP_PARAMS} . current; quit"
+	lftp "${LOXONE_IP}" -u "${LOXONE_USERNAME},${LOXONE_PASSWORD}" -e "set ssl:verify-certificate false; mirror ${FTP_PARAMS} . current; quit"
 	tar -czf "archives/loxone_backup_${LOXONE_IP}_$(date +%Y-%m-%d_%H-%M-%S).tar.gz" "current/"
 
 	if [ "${KEEP_DAYS}" -gt 0 ]; then

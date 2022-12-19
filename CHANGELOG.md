@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.3.0) (2022-12-19)
+
+### Features
+
+- Excluding specific directories from backup. ([#11])
+
 ## [1.2.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.2.0) (2022-12-08)
 
 ### Features
@@ -21,5 +27,6 @@
 Initial release.
 
 [#9]: https://github.com/jokay/docker-loxone-backup/issues/9
+[#11]: https://github.com/jokay/docker-loxone-backup/issues/11
 [#12]: https://github.com/jokay/docker-loxone-backup/issues/12
 [#14]: https://github.com/jokay/docker-loxone-backup/issues/14

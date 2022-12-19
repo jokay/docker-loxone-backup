@@ -8,6 +8,16 @@ log_sub() {
 	printf "                         | %s\n" "${1}"
 }
 
+# Check required params
+check() {
+	if [ -z "${LOXONE_IP}" ] || [ -z "${LOXONE_USERNAME}" ] || [ -z "${LOXONE_PASSWORD}" ]; then
+		log "Required environment variables are missing!"
+		log_sub "Please specify LOXONE_IP, LOXONE_USERNAME and LOXONE_PASSWORD."
+		exit 1
+	fi
+}
+
+# Show configuration
 config() {
 	log "Configuration"
 	log_sub ""
@@ -17,18 +27,12 @@ config() {
 	log_sub "EXCLUDE_DIRS: ${EXCLUDE_DIRS}"
 }
 
-check() {
-	if [ -z "${LOXONE_IP}" ] || [ -z "${LOXONE_USERNAME}" ] || [ -z "${LOXONE_PASSWORD}" ]; then
-		log "Required environment variables are missing!"
-		log_sub "Please specify LOXONE_IP, LOXONE_USERNAME and LOXONE_PASSWORD."
-		exit 1
-	fi
-}
-
+# Setup file structure
 setup() {
 	mkdir -p "/data/current" "/data/archives"
 }
 
+# Compose FTP params
 ftp_params() {
 	FTP_PARAMS="-a -n -e -P=5 --use-pget-n=1 --skip-noaccess --use-cache --log=ftp.log"
 
@@ -44,12 +48,14 @@ ftp_params() {
 	fi
 }
 
+# Backup and compress files
 backup() {
 	log "Backup files from Loxone (${LOXONE_IP}) ..."
 	lftp "${LOXONE_IP}" -u "${LOXONE_USERNAME},${LOXONE_PASSWORD}" -e "set ssl:verify-certificate false; mirror ${FTP_PARAMS} . current; quit"
 	tar -czf "archives/loxone_backup_${LOXONE_IP}_$(date +%Y-%m-%d_%H-%M-%S).tar.gz" "current/"
 }
 
+# Cleanup old archives
 cleanup() {
 	if [ "${KEEP_DAYS}" -gt 0 ]; then
 		cd "/data/archives" || exit

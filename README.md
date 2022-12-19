@@ -38,14 +38,15 @@ None
 For this Docker image, it's strongly advised to create a **separate user** who
 has only the permission **FTP**.
 
-| ENV field       | Req. / Opt.  | Description                                                                            |
-|-----------------|--------------|----------------------------------------------------------------------------------------|
-| LOXONE_IP       | **Required** | IP or url of the Loxone Miniserver.                                                    |
-| LOXONE_USERNAME | **Required** | Loxone username.                                                                       |
-| LOXONE_PASSWORD | **Required** | Loxone password.                                                                       |
-| INTERVAL        | *Optional*   | Interval of backups, default is `86400` seconds (24h).                                 |
-| KEEP_DAYS       | *Optional*   | Cleanup of backups older than x days. Default is `30`. Can be disabled by setting `0`. |
-| VERBOSE         | *Optional*   | If `true`, increases the verbosity level. Default ist `false`.                         |
+| ENV field       | Req. / Opt.  | Description                                                                                 |
+|-----------------|--------------|---------------------------------------------------------------------------------------------|
+| LOXONE_IP       | **Required** | IP or url of the Loxone Miniserver.                                                         |
+| LOXONE_USERNAME | **Required** | Loxone username.                                                                            |
+| LOXONE_PASSWORD | **Required** | Loxone password.                                                                            |
+| INTERVAL        | *Optional*   | Interval of backups. Default is `86400` seconds (24h).                                      |
+| KEEP_DAYS       | *Optional*   | Cleanup of backups older than x days. Default is `30`. Can be disabled by setting `0`.      |
+| VERBOSE         | *Optional*   | If `true`, increases the verbosity level. Default is `false`.                               |
+| EXCLUDE_DIRS    | *Optional*   | Comma separated list of folders to exclude, e.g. `dir1,dir2`. Default is excluding nothing. |
 
 ## Samples
 

@@ -11,6 +11,7 @@ ENV LOXONE_PASSWORD ""
 ENV INTERVAL 86400
 ENV KEEP_DAYS 30
 ENV VERBOSE false
+ENV EXCLUDE_DIRS ""
 
 RUN apk add --update --no-cache  \
         tzdata \

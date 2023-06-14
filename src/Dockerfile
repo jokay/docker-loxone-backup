@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/alpine
-FROM docker.io/alpine:3.18.2@sha256:830b767f06c8333bc3590165546622cdc9c1780329b78f142cb824957c04d93e
+FROM docker.io/alpine:3.18.2@sha256:c7431a7ecef19e2dbab2abd73b052da52de2d3bdce6b32757625a7497f4e93d3
 
 ARG VERSION
 

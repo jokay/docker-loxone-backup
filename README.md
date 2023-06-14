@@ -1,7 +1,7 @@
 # Docker Loxone backup
 
-Multi-platform Docker image for automated [Loxone](https://www.loxone.com/) backups based on
-[Alpine Linux](https://www.alpinelinux.org).
+Multi-platform Docker image for automated [Loxone](https://www.loxone.com/)
+backups based on [Alpine Linux](https://www.alpinelinux.org).
 
 ## Information
 

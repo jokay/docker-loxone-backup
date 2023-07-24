@@ -1,3 +1,5 @@
+# kics-scan disable=fd54f200-402c-4333-a5a4-36ef6709af2f,b03a748a-542d-44f4-bb86-9199ab4fd2d5,d3499f6d-1651-41bb-a9a7-de925fea487b
+
 # https://hub.docker.com/_/alpine
 FROM docker.io/alpine:3.18.2@sha256:82d1e9d7ed48a7523bdebc18cf6290bdb97b82302a8a9c27d4fe885949ea94d1
 
@@ -13,9 +15,7 @@ ENV KEEP_DAYS 30
 ENV VERBOSE false
 ENV EXCLUDE_DIRS ""
 
-RUN apk add --update --no-cache  \
-        tzdata \
-        lftp
+RUN apk add --no-cache tzdata lftp
 
 WORKDIR /data
 

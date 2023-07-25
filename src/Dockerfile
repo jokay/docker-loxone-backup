@@ -15,7 +15,9 @@ ENV KEEP_DAYS 30
 ENV VERBOSE false
 ENV EXCLUDE_DIRS ""
 
-RUN apk add --update --no-cache tzdata lftp
+RUN apk add --update --no-cache \
+        tzdata \
+        lftp
 
 WORKDIR /data
 

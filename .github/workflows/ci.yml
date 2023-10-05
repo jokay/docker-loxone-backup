@@ -39,4 +39,3 @@ jobs:
           SPELL_MISSPELL_DISABLE_ERRORS: "true"
           VALIDATE_ALL_CODEBASE: "true"
           YAML_PRETTIER_DISABLE_ERRORS: "false"
-

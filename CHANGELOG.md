@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1](https://github.com/jokay/docker-loxone-backup/releases/tag/1.3.1) (2024-12-24)
+
+### Improvements
+
+- Updated Alpine Linux.
+
 ## [1.3.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.3.0) (2022-12-19)
 
 ### Features

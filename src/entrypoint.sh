@@ -41,10 +41,10 @@ ftp_params() {
     fi
 
     if [ -n "${EXCLUDE_DIRS}" ]; then
-      for EXCLUDE_DIR in $(printf "%s" "${EXCLUDE_DIRS}" | sed 's/,/ /g'); do
-          rm -rf "/data/current/${EXCLUDE_DIR}"
-          FTP_PARAMS="${FTP_PARAMS} -x '${EXCLUDE_DIR}/'"
-      done
+        for EXCLUDE_DIR in $(printf "%s" "${EXCLUDE_DIRS}" | sed 's/,/ /g'); do
+            rm -rf "/data/current/${EXCLUDE_DIR}"
+            FTP_PARAMS="${FTP_PARAMS} -x '${EXCLUDE_DIR}/'"
+        done
     fi
 }
 

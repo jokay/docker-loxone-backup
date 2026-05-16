@@ -3,6 +3,8 @@
   "extends": [
     "config:base",
     ":disableDependencyDashboard",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
     ":disableRateLimiting",
     ":automergeDigest",
     "docker:enableMajor",
@@ -10,7 +12,17 @@
     "helpers:pinGitHubActionDigests"
   ],
   "labels": ["dependencies"],
-  "minimumReleaseAge": "3 days",
+  "minimumReleaseAge": "10 days",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["setup\\.sh$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\nCOG_VERSION=\"(?<currentValue>[^\"]+)\""
+      ],
+      "versioningTemplate": "semver"
+    }
+  ],
   "packageRules": [
     {
       "matchPaths": [".github/workflows/*.yml"],

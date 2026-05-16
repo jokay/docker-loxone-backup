@@ -1,0 +1,7 @@
+#!/bin/sh
+if ! command -v cog >/dev/null 2>&1; then
+  echo "Command 'cog' - not found. Install cocogitto from https://github.com/cocogitto/cocogitto/releases."
+  exit 1
+fi
+
+cog verify "$(cat "$1")"

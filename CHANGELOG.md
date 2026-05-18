@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.4.0) (2026-05-18)
+
+### Improvements
+
+- Added health check.
+- Updated Alpine Linux.
+
 ## [1.3.2](https://github.com/jokay/docker-loxone-backup/releases/tag/1.3.2) (2026-01-18)
 
 ### Improvements

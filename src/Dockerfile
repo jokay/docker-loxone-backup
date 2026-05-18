@@ -25,3 +25,6 @@ VOLUME ["/data"]
 
 COPY entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["entrypoint.sh"]
+
+HEALTHCHECK --interval=60s --timeout=10s --start-period=30s --retries=3 \
+    CMD find /tmp -name .health -mmin -$(( (${INTERVAL:-86400} + 3600) / 60 )) | grep -q .

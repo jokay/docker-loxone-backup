@@ -68,6 +68,7 @@ cleanup() {
 log "xjokay/loxone-backup ${VERSION}"
 
 check
+touch /tmp/.health
 
 config
 
@@ -81,6 +82,8 @@ while :; do
     backup
 
     cleanup
+
+    touch /tmp/.health
 
     next=$(date -d "@$(($(date +%s) + INTERVAL))" +%Y-%m-%dT%H:%M:%S%z)
     log "Next run on ${next} ..."

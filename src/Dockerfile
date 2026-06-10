@@ -11,6 +11,7 @@ ENV LOXONE_IP=""
 ENV LOXONE_USERNAME=""
 ENV LOXONE_PASSWORD=""
 ENV INTERVAL=86400
+ENV CRON=""
 ENV KEEP_DAYS=30
 ENV VERBOSE=false
 ENV EXCLUDE_DIRS=""
@@ -27,4 +28,4 @@ COPY entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["entrypoint.sh"]
 
 HEALTHCHECK --interval=60s --timeout=10s --start-period=30s --retries=3 \
-    CMD find /tmp -name .health -mmin -$(( (${INTERVAL:-86400} + 3600) / 60 )) | grep -q .
+    CMD if [ -n "${CRON}" ]; then pgrep crond > /dev/null; else find /tmp -name .health -mmin -$(( (${INTERVAL:-86400} + 3600) / 60 )) | grep -q .; fi

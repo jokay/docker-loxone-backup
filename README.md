@@ -6,7 +6,7 @@ backups based on [Alpine Linux](https://www.alpinelinux.org).
 ## Information
 
 | Service                                                     | Stats                                                                                                                                                                                                                                                                                                               |
-|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [GitHub](https://github.com/jokay/docker-loxone-backup)     | ![Last commit](https://img.shields.io/github/last-commit/jokay/docker-loxone-backup.svg?style=flat-square) ![Issues](https://img.shields.io/github/issues-raw/jokay/docker-loxone-backup.svg?style=flat-square) ![PR](https://img.shields.io/github/issues-pr-raw/jokay/docker-loxone-backup.svg?style=flat-square) |
 | [Docker Hub](https://hub.docker.com/r/xjokay/loxone-backup) | ![Pulls](https://img.shields.io/docker/pulls/xjokay/loxone-backup.svg?style=flat-square) ![Stars](https://img.shields.io/docker/stars/xjokay/loxone-backup.svg?style=flat-square)                                                                                                                                   |
 
@@ -19,7 +19,7 @@ docker pull docker.io/xjokay/loxone-backup:latest
 ### Supported tags
 
 | Tag       | Description                                                                                                |
-|-----------|------------------------------------------------------------------------------------------------------------|
+| --------- | ---------------------------------------------------------------------------------------------------------- |
 | latest    | [Latest](https://github.com/jokay/docker-loxone-backup/releases/latest) release                            |
 | {release} | Specific release version, see available [releases](https://github.com/jokay/docker-loxone-backup/releases) |
 
@@ -30,7 +30,7 @@ None
 ### Volumes
 
 | Directory | Description             |
-|-----------|-------------------------|
+| --------- | ----------------------- |
 | /data     | Location of the backups |
 
 ### Configuration
@@ -39,14 +39,15 @@ For this Docker image, it's strongly advised to create a **separate user** who
 has only the permission **FTP**.
 
 | ENV field       | Req. / Opt.  | Description                                                                                 |
-|-----------------|--------------|---------------------------------------------------------------------------------------------|
+| --------------- | ------------ | ------------------------------------------------------------------------------------------- |
 | LOXONE_IP       | **Required** | IP or url of the Loxone Miniserver.                                                         |
 | LOXONE_USERNAME | **Required** | Loxone username.                                                                            |
 | LOXONE_PASSWORD | **Required** | Loxone password.                                                                            |
-| INTERVAL        | *Optional*   | Interval of backups. Default is `86400` seconds (24h).                                      |
-| KEEP_DAYS       | *Optional*   | Cleanup of backups older than x days. Default is `30`. Can be disabled by setting `0`.      |
-| VERBOSE         | *Optional*   | If `true`, increases the verbosity level. Default is `false`.                               |
-| EXCLUDE_DIRS    | *Optional*   | Comma separated list of folders to exclude, e.g. `dir1,dir2`. Default is excluding nothing. |
+| INTERVAL        | _Optional_   | Interval of backups. Default is `86400` seconds (24h). Ignored if `CRON` is set.            |
+| CRON            | _Optional_   | Cron expression for scheduling backups, e.g. `0 0 * * *`. Overrides `INTERVAL`.             |
+| KEEP_DAYS       | _Optional_   | Cleanup of backups older than x days. Default is `30`. Can be disabled by setting `0`.      |
+| VERBOSE         | _Optional_   | If `true`, increases the verbosity level. Default is `false`.                               |
+| EXCLUDE_DIRS    | _Optional_   | Comma separated list of folders to exclude, e.g. `dir1,dir2`. Default is excluding nothing. |
 
 ## Samples
 

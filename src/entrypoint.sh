@@ -21,7 +21,11 @@ check() {
 config() {
     log "Configuration"
     log_sub ""
-    log_sub "INTERVAL: ${INTERVAL}"
+    if [ -n "${CRON}" ]; then
+        log_sub "CRON: ${CRON}"
+    else
+        log_sub "INTERVAL: ${INTERVAL}"
+    fi
     log_sub "KEEP_DAYS: ${KEEP_DAYS}"
     log_sub "VERBOSE: ${VERBOSE}"
     log_sub "EXCLUDE_DIRS: ${EXCLUDE_DIRS}"
@@ -65,18 +69,8 @@ cleanup() {
     fi
 }
 
-log "xjokay/loxone-backup ${VERSION}"
-
-check
-touch /tmp/.health
-
-config
-
-setup
-
-ftp_params
-
-while :; do
+# Run a single backup cycle
+run() {
     cd "/data" || exit
 
     backup
@@ -84,9 +78,48 @@ while :; do
     cleanup
 
     touch /tmp/.health
+}
 
-    next=$(date -d "@$(($(date +%s) + INTERVAL))" +%Y-%m-%dT%H:%M:%S%z)
-    log "Next run on ${next} ..."
+check
 
-    sleep "${INTERVAL}"
-done
+ftp_params
+
+# Triggered by cron for a single backup cycle
+if [ "${1}" = "run" ]; then
+    exec 9>/tmp/run.lock
+    if ! flock -n 9; then
+        log "Skipping this run, the previous backup is still in progress ..."
+        printf "\n"
+        exit 0
+    fi
+
+    run
+    log "Next run according to schedule (${CRON}) ..."
+    printf "\n"
+    exit 0
+fi
+
+log "xjokay/loxone-backup ${VERSION}"
+
+config
+
+setup
+
+touch /tmp/.health
+
+if [ -n "${CRON}" ]; then
+    mkdir -p /etc/crontabs
+    echo "${CRON} /usr/local/bin/entrypoint.sh run >> /proc/1/fd/1 2>&1" >/etc/crontabs/root
+
+    log "Starting cron scheduler ..."
+    exec crond -f -L /dev/stdout
+else
+    while :; do
+        run
+
+        next=$(date -d "@$(($(date +%s) + INTERVAL))" +%Y-%m-%dT%H:%M:%S%z)
+        log "Next run on ${next} ..."
+
+        sleep "${INTERVAL}"
+    done
+fi

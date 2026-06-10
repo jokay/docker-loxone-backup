@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.5.0) (2026-06-10)
+
+### Features
+
+- Added support for cron. ([#18])
+
 ## [1.4.0](https://github.com/jokay/docker-loxone-backup/releases/tag/1.4.0) (2026-05-18)
 
 ### Improvements
@@ -49,3 +55,4 @@ Initial release.
 [#11]: https://github.com/jokay/docker-loxone-backup/issues/11
 [#12]: https://github.com/jokay/docker-loxone-backup/issues/12
 [#14]: https://github.com/jokay/docker-loxone-backup/issues/14
+[#18]: https://github.com/jokay/docker-loxone-backup/issues/18

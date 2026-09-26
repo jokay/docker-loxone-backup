@@ -6,7 +6,7 @@ disable_bump_commit = true
 post_bump_hooks = [
   "git add CHANGELOG.md",
   "git commit -m 'ci(release): version {{version}}'",
-  "git tag -f '{{version}}' -m 'ci(release): version {{version}}'",
+  "git tag -f '{{version}}'",
 ]
 
 [changelog]

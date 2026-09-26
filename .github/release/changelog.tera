@@ -1,0 +1,29 @@
+{% set repository_url = "https://github.com/jokay/docker-loxone-backup" -%}
+{% set release_label = version.tag | default(value="Unreleased") -%}
+{% set dep_commits = commits | filter(attribute="scope", value="deps") -%}
+## [{{ release_label }}] ({{ date | date(format="%Y-%m-%d") }})
+
+{% for type_group in commits | group_by_type -%}
+{% set group_dep_count = type_group.1 | filter(attribute="scope", value="deps") | length -%}
+{% set group_total = type_group.1 | length -%}
+{% if group_dep_count < group_total -%}
+#### {{ type_group.0 }}
+
+{% for commit in type_group.1 -%}
+{% if commit.scope != "deps" -%}
+- {% if commit.scope %}**({{ commit.scope }})** {% endif %}{{ commit.summary }} ([{{ commit.id | truncate(length=7, end="") }}])
+{% endif -%}
+{% endfor %}
+{% endif -%}
+{% endfor -%}
+{% if dep_commits | length > 0 -%}
+#### Dependencies
+
+{% for commit in dep_commits -%}
+- {{ commit.summary }} ([{{ commit.id | truncate(length=7, end="") }}])
+{% endfor %}
+{% endif -%}
+[{{ release_label }}]: {{ repository_url }}/compare/{{ from.id }}..{% if version.tag %}{{ version.tag }}{% else %}HEAD{% endif %}
+{% for commit in commits -%}
+[{{ commit.id | truncate(length=7, end="") }}]: {{ repository_url }}/commit/{{ commit.id }}
+{% endfor -%}

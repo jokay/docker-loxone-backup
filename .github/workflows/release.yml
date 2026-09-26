@@ -2,16 +2,51 @@ name: release
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - "*"
+
+permissions: read-all
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
+  bump:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.push.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Install cocogitto
+        uses: cocogitto/cocogitto-action@52d0023b4396897f1815648e553db2ab8d782f3a # v4.2.0
+        with:
+          install-only: true
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Bump version
+        run: cog --config .github/release/cog.toml bump --auto
+      - name: Push commit and tag
+        id: push
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          git push --atomic origin main "${TAG}"
+          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
   registries:
+    needs:
+      - bump
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.bump.outputs.tag }}
       - name: Get Docker metadata
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
@@ -19,11 +54,12 @@ jobs:
           images: |
             ghcr.io/jokay/loxone-backup
             docker.io/xjokay/loxone-backup
+          flavor: |
+            latest=true
           tags: |
-            type=ref,event=tag
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
+            type=semver,pattern={{version}},value=${{ needs.bump.outputs.tag }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ needs.bump.outputs.tag }}
+            type=semver,pattern={{major}},value=${{ needs.bump.outputs.tag }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
       - name: Set up Docker Buildx
@@ -63,17 +99,20 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
   create:
     needs:
+      - bump
       - registries
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Create release
         uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # tag=v1.1.4
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: ${{ needs.bump.outputs.tag }}
+          release_name: ${{ needs.bump.outputs.tag }}
           body: |
             Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.

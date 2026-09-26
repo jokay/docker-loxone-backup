@@ -1,0 +1,30 @@
+from_latest_tag = true
+ignore_merge_commits = true
+skip_ci = "[skip ci]"
+disable_bump_commit = true
+
+post_bump_hooks = [
+  "git add CHANGELOG.md",
+  "git commit -m 'ci(release): version {{version}}'",
+  "git tag -f '{{version}}' -m 'ci(release): version {{version}}'",
+]
+
+[changelog]
+path = "CHANGELOG.md"
+template = ".github/release/changelog.tera"
+remote = "github.com"
+owner = "jokay"
+repository = "docker-loxone-backup"
+
+[commit_types]
+feat = { changelog_title = "Features", bump_minor = true, order = 0 }
+perf = { changelog_title = "Improvements", bump_patch = true, order = 1 }
+refactor = { changelog_title = "Improvements", bump_patch = true, order = 1 }
+docs = { changelog_title = "Improvements", bump_patch = true, order = 1 }
+chore = { changelog_title = "Improvements", bump_patch = true, order = 1 }
+style = { changelog_title = "Improvements", bump_patch = true, order = 1 }
+fix = { changelog_title = "Bugfixes", bump_patch = true, order = 2 }
+build = { omit_from_changelog = true }
+ci = { omit_from_changelog = true }
+test = { omit_from_changelog = true }
+revert = { changelog_title = "Reverts", order = 3 }

@@ -49,12 +49,15 @@ jobs:
       contents: write
     steps:
       - name: Create release
-        uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # tag=v1.1.4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ needs.bump.outputs.tag }}
-          release_name: ${{ needs.bump.outputs.tag }}
-          commitish: ${{ needs.bump.outputs.sha }}
-          body: |
-            Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.bump.outputs.tag }}
+          SHA: ${{ needs.bump.outputs.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          CHANGELOG="https://github.com/${REPO}/blob/main/CHANGELOG.md"
+          gh release create "${TAG}" \
+            --repo "${REPO}" \
+            --title "${TAG}" \
+            --target "${SHA}" \
+            --notes "Please refer to [CHANGELOG.md](${CHANGELOG}) for details."

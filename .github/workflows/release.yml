@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      tag: ${{ steps.push.outputs.tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -32,6 +34,25 @@ jobs:
       - name: Bump version
         run: cog --config .github/release/cog.toml bump --auto
       - name: Push commit and tag
+        id: push
         run: |
           TAG=$(git describe --tags --abbrev=0)
           git push --atomic origin main "${TAG}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+  create:
+    needs:
+      - bump
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create release
+        uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # tag=v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.bump.outputs.tag }}
+          release_name: ${{ needs.bump.outputs.tag }}
+          commitish: ${{ needs.bump.outputs.tag }}
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.

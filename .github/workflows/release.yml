@@ -17,6 +17,7 @@ jobs:
       contents: read
     outputs:
       tag: ${{ steps.push.outputs.tag }}
+      sha: ${{ steps.push.outputs.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -39,6 +40,7 @@ jobs:
           TAG=$(git describe --tags --abbrev=0)
           git push --atomic origin main "${TAG}"
           echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   create:
     needs:
       - bump
@@ -53,6 +55,6 @@ jobs:
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
           release_name: ${{ needs.bump.outputs.tag }}
-          commitish: ${{ needs.bump.outputs.tag }}
+          commitish: ${{ needs.bump.outputs.sha }}
           body: |
             Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.

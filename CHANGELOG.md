@@ -1,6 +1,17 @@
 # Changelog
 
 - - -
+## [1.5.3] (2026-09-29)
+
+#### Dependencies
+
+- update docker.io/alpine docker tag to v3.24.2 ([0753472])
+
+[1.5.3]: https://github.com/jokay/docker-loxone-backup/compare/075347210b6b3fff412da788a1b2b75329244506..1.5.3
+[0753472]: https://github.com/jokay/docker-loxone-backup/commit/075347210b6b3fff412da788a1b2b75329244506
+
+- - -
+
 ## [1.5.2] (2026-09-27)
 
 #### Dependencies

@@ -1,3 +1,5 @@
+[Archived] This repository has been archived.
+
 # Docker Loxone backup
 
 Multi-platform Docker image for automated [Loxone](https://www.loxone.com/)

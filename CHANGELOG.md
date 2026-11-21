@@ -1,6 +1,23 @@
 # Changelog
 
 - - -
+## [1.5.5] (2026-11-19)
+
+#### Dependencies
+
+- update docker.io/alpine docker tag to v3.24.4 ([14fec7c])
+- update docker/login-action action to v4.8.0 (#300) ([49399d7])
+- update oxsecurity/megalinter action to v10.2.0 (#299) ([936a2ec])
+- update docker/login-action action to v4.7.0 (#298) ([f734409])
+
+[1.5.5]: https://github.com/jokay/docker-loxone-backup/compare/f734409da54f11f0eb423b3758d436972f9a10f3..1.5.5
+[14fec7c]: https://github.com/jokay/docker-loxone-backup/commit/14fec7c45364f509181ddeb117a49f361936e96a
+[49399d7]: https://github.com/jokay/docker-loxone-backup/commit/49399d75d484eb4453a4683084c0873e718f50f2
+[936a2ec]: https://github.com/jokay/docker-loxone-backup/commit/936a2ec8a4ff3aeb4f5f9bcca55893f332397c0d
+[f734409]: https://github.com/jokay/docker-loxone-backup/commit/f734409da54f11f0eb423b3758d436972f9a10f3
+
+- - -
+
 ## [1.5.4] (2026-11-02)
 
 #### Dependencies
